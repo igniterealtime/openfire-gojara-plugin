@@ -1,4 +1,4 @@
-package org.jivesoftware.openfire.plugin.gojara.messagefilter.remoteroster.processors;
+package org.jivesoftware.openfire.plugin.gojara.messagefilter.processors;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,7 +10,6 @@ import org.dom4j.tree.DefaultElement;
 import org.jivesoftware.openfire.interceptor.InterceptorManager;
 import org.jivesoftware.openfire.interceptor.PacketInterceptor;
 import org.jivesoftware.openfire.interceptor.PacketRejectedException;
-import org.jivesoftware.openfire.plugin.gojara.messagefilter.remoteroster.RemoteRosterInterceptor;
 import org.jivesoftware.openfire.session.Session;
 import org.jivesoftware.util.JiveGlobals;
 import org.xmpp.packet.IQ;
@@ -27,18 +26,15 @@ import org.xmpp.packet.Packet;
  * 
  */
 public class DiscoIQRegisteredProcessor extends AbstractRemoteRosterProcessor {
-
 	private boolean _isRegistered = false;
-	private String _mySubdoman;
 
-	public DiscoIQRegisteredProcessor(String subdomain) {
-		Log.debug("Created DiscoIQResigteredProcessor for " + subdomain);
-		_mySubdoman = subdomain;
+	public DiscoIQRegisteredProcessor() {
+		Log.info("Created DiscoIQRegisteredProcessor");
 	}
 
 	@Override
-	public void process(Packet packet) throws PacketRejectedException {
-		Log.debug("Processing packet in DiscoIQResigteredProcessor for " + _mySubdoman);
+	public void process(Packet packet, final String subdomain, String to, String from) throws PacketRejectedException {
+		Log.debug("Processing packet in DiscoIQRegisteredProcessor for " + subdomain);
 		// Check if the jabber:iq:register is enabled in admin panel
 		boolean isFeatureEnabled = JiveGlobals.getBooleanProperty("plugin.remoteroster.sparkDiscoInfo", false);
 		if (!isFeatureEnabled) {
@@ -46,13 +42,10 @@ public class DiscoIQRegisteredProcessor extends AbstractRemoteRosterProcessor {
 			return;
 		}
 
-		String from = packet.getFrom().toString();
-		String to = packet.getTo().toString();
 		final InterceptorManager interceptorManager = InterceptorManager.getInstance();
 		final PacketInterceptor interceptor = new PacketInterceptor() {
 
-			public void interceptPacket(Packet packet, Session session, boolean incoming, boolean processed)
-					throws PacketRejectedException {
+			public void interceptPacket(Packet packet, Session session, boolean incoming, boolean processed) throws PacketRejectedException {
 				if (!processed && incoming) {
 					if (packet instanceof IQ) {
 						IQ iqPacket = (IQ) packet;
@@ -61,13 +54,12 @@ public class DiscoIQRegisteredProcessor extends AbstractRemoteRosterProcessor {
 							return;
 						String ns = iqPacket.getChildElement().getNamespace().getURI();
 						if (iqPacket.getType().equals(IQ.Type.result) && ns.equals("jabber:iq:register")
-								&& iqPacket.getFrom().toString().equals(_mySubdoman)) {
+								&& iqPacket.getFrom().toString().equals(subdomain)) {
 							// Check if we are already registered
 							setRegistered(iqPacket.toString().contains("<registered/>"));
 							throw new PacketRejectedException();
-						} else if (iqPacket.getType().equals(IQ.Type.result)
-								&& ns.equals("http://jabber.org/protocol/disco#info")
-								&& iqPacket.getFrom().toString().equals(_mySubdoman)) {
+						} else if (iqPacket.getType().equals(IQ.Type.result) && ns.equals("http://jabber.org/protocol/disco#info")
+								&& iqPacket.getFrom().toString().equals(subdomain)) {
 
 							/*
 							 * This is the answer of the disco#info from spark
@@ -86,7 +78,7 @@ public class DiscoIQRegisteredProcessor extends AbstractRemoteRosterProcessor {
 			}
 		};
 
-		Log.debug("Creating my own listener for jabber:iq:register result to external component " + _mySubdoman);
+		Log.debug("Creating my own listener for jabber:iq:register result to external component " + subdomain);
 		interceptorManager.addInterceptor(interceptor);
 
 		IQ askComponent = new IQ();
@@ -102,7 +94,7 @@ public class DiscoIQRegisteredProcessor extends AbstractRemoteRosterProcessor {
 
 			@Override
 			public void run() {
-				Log.debug("Removing my created listener for jabber:iq:register. Component " + _mySubdoman);
+				Log.debug("Removing my created listener for jabber:iq:register. Component " + subdomain);
 				interceptorManager.removeInterceptor(interceptor);
 			}
 		};
