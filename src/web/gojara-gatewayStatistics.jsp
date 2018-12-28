@@ -1,7 +1,6 @@
-<%@page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="org.jivesoftware.openfire.XMPPServer" %>

@@ -1,14 +1,10 @@
-<%@page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.GatewaySession"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.database.SessionEntry"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.utils.JspHelper"%>
-    <%@ page import="org.jivesoftware.openfire.XMPPServer" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.GatewaySession"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.database.SessionEntry"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.utils.JspHelper"%>
+<%@ page import="org.jivesoftware.openfire.XMPPServer" %>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="java.util.Date"%>

@@ -1,12 +1,8 @@
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
-
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.sessions.GatewaySession"%>
-<%@ page
-    import="org.jivesoftware.openfire.plugin.gojara.utils.JspHelper"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.TransportSessionManager"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.GojaraAdminManager"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.sessions.GatewaySession"%>
+<%@ page import="org.jivesoftware.openfire.plugin.gojara.utils.JspHelper"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Set"%>
