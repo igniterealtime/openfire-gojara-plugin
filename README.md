@@ -1,6 +1,6 @@
 # Openfire Gojara Plugin
 
-Implements the XEP-0321 - Remote Roster Management.
+Implements the [XEP-0321 - Remote Roster Management](https://xmpp.org/extensions/xep-0321.html).
 
 ## CI Build Status
 
