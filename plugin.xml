@@ -6,7 +6,7 @@
     </description>
     <author>Holger Bergunde / Daniel Henninger / Axel-F. Brand</author>
     <version>${project.version}</version>
-    <date>2022-03-23</date>
+    <date>2023-11-21</date>
     <databaseKey>gojara</databaseKey>
     <databaseVersion>1</databaseVersion>
     <minServerVersion>4.0.0</minServerVersion>
